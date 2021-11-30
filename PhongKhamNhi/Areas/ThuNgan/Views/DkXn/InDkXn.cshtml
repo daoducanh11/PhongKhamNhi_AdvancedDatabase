@@ -1,0 +1,134 @@
+﻿@model List<PhongKhamNhi.Models.DTO.KqXnDTO>
+
+@{ Layout = null; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Invoice</title>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Areas/Content/dist/css/adminlte.min.css">
+    <!-- css_custom -->
+    <link href="~/Areas/Content/css_custom_admin.css" rel="stylesheet" />
+    <style>
+        .table-sign, .table-sign tr, .table-sign td {
+            border: none;
+        }
+
+            .table-sign th {
+                border: none;
+                background-color: #e9ecef00;
+            }
+
+            .table-sign.table-infor td {
+                vertical-align: top !important;
+            }
+    </style>
+</head>
+<body>
+    <section class="content" style="width: 1200px; margin: auto;">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <h2>PHIẾU ĐĂNG KÝ XÉT NGHIỆM</h2>
+                    <p>Theo phiếu khám bệnh: @ViewBag.PhieuDkXn.MaPhieuKB</p>
+                    <p>Bác sĩ chỉ định: @ViewBag.Bs</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-sign table-infor">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Ngày lập phiếu: @ViewBag.PhieuDkXn.ThoiGianLap</p>
+                                <p><b>Họ tên bệnh nhi: @ViewBag.BenhNhi.HoTen</b></p>
+                                <p>Ngày sinh: @ViewBag.BenhNhi.NgaySinh.ToString().Split(' ')[0]</p>
+                                <p>Giới tính: @ViewBag.BenhNhi.GioiTinh</p>
+                                <p>Địa chỉ: @ViewBag.BenhNhi.DiaChi</p>
+                            </td>
+                            <td style="column-count: 9;">
+                            </td>
+                            <td>
+                                <p style="opacity: 0;">A</p>
+                                <p><b>Phòng khám nhi</b></p>
+                                <p>Địa chỉ: 236 Hoàng Quốc Việt - Cổ Nhuế - Bắc Từ Liêm - Hà Nội</p>
+                                <p>Điện thoại: 08.68.99.1111</p>
+                                <p>Email: phongkhamnhi@gmail.com - Website: phongkhamnhi.vn</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+        </div>
+        @*<div class="row">
+            <div class="col-12">
+                <p>Ghi chú: @Model.OrderDescription</p>
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-order">
+                    <thead>
+                        <tr>
+                            <th class="text-center">STT</th>
+                            <th>Tên xét nghiệm</th>
+                            <th class="text-center">Đơn giá (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @(i + 1)
+                                </td>
+                                <td>@Model[i].TenXN</td>
+                                <td class="text-right">
+                                    @(Model[i].DonGia.ToString("N0"))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="text-right">
+                                <b>Tổng tiền: </b>
+                            </td>
+                            <td colspan="1" class="text-right">
+                                <b>@ViewBag.PhieuDkXn.TongTien.ToString("N0")</b>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.col-->
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-sign">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" style="opacity:0;">
+                                <b>Khách hàng</b>
+                                <p>(Ký, họ tên)</p>
+                            </td>
+                            <td>
+                            </td>
+                            <td class="text-center">
+                                <b>Thu ngân</b>
+                                <p>(Ký, họ tên)</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

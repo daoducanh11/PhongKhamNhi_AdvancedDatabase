@@ -1,0 +1,336 @@
+﻿@model PhongKhamNhi.Models.Entities.PhieuDangKyKham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/LeTan/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới lịch hẹn khám</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        @Html.ActionLink("Trang chủ", "Index", "LeTanHome")
+                    </li>
+                    <li class="breadcrumb-item active">Chỉnh sửa lịch hẹn khám</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    @using (Html.BeginForm("Edit", "LeTanHome", FormMethod.Post, new { @onsubmit = "return validateForm()" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h4 class="">
+                            Thông tin chính
+                        </h4>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-md-2">Họ tên bệnh nhi:</label>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.MaPhieuDKK, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "hidden" } })
+                            </div>
+                            <label class="col-md-1 text-right">Ngày sinh:</label>
+                            <div class="col-md-4">
+                                <input id="NgaySinh" name="NgaySinh" class="form-control" type="date" value="@ViewBag.ns" required="required" />
+
+                                @*@Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2">Số điện thoại thân nhân:</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="col-md-2 text-right">Thời gian hẹn khám:</label>
+                            <div class="col-md-4">
+                                <input id="ThoiGianHen" name="ThoiGianHen" class="form-control" type="datetime-local" value="@ViewBag.tgHen" min="@ViewBag.tgHenMin" required="required" />
+
+                                @Html.EditorFor(model => model.ThoiGianDKK, new { htmlAttributes = new { @type = "hidden" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2">Lời nhắn:</label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.LoiNhan, new { @class = "form-control", @rows = "3" })
+                                @Html.ValidationMessageFor(model => model.LoiNhan, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-->
+            <div class="col-md-3">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <div class="form-group clearfix">
+                            <label>Trạng thái</label><br />
+                            <div class="form-group clearfix">
+                                @{ var f = "";
+                                    var t = "";
+                                    if (Model.TrangThai == true)
+                                    {
+                                        t = "checked";
+                                    }
+                                    else
+                                    {
+                                        f = "checked";
+                                    }
+                                }
+                                <div class="icheck-danger d-inline">
+                                    <input type="radio" name="tt" value="0" @f id="radioDanger1">
+                                    <label for="radioDanger1">Chờ xử lý</label>
+                                </div>
+                                <div class="icheck-danger d-inline" style="margin-left: 50px;">
+                                    <input type="radio" name="tt" value="1" @t id="radioDanger2">
+                                    <label for="radioDanger2">Đã xử lý</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="Submit" name="Submit" class="btn btn-block btn-success btn-lg">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Cập nhật
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="reset" class="btn btn-block btn-info btn-lg">
+                                        <i class="fas fa-sync"></i>
+                                        Nhập lại
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Chi nhánh:</label>
+                            <select id="chiNhanh" class="form-control" name="chiNhanh">
+                                @foreach (var item in ViewBag.ListChiNhanh)
+                                {
+                                    if (item.MaChiNhanh == Model.MaChiNhanh)
+                                    {
+                                        <option selected="selected" value="@item.MaChiNhanh">@item.TenChiNhanh</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.MaChiNhanh">@item.TenChiNhanh</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Bác sĩ:</label>
+                            <select id="bacSi" class="form-control" name="bs">
+                                @foreach (var item in ViewBag.ListBacSi)
+                                {
+                                    if (item.MaBS == Model.MaBS)
+                                    {
+                                        <option selected="selected" value="@item.MaBS">@item.HoTen</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.MaBS">@item.HoTen</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h5 style="display:inline-block;">
+                            Lịch hẹn bác sĩ
+                        </h5>
+                        <i id="alert-time" class="alert-time bg-danger"><b>Thời gian này bác sĩ đang thăm khám cho bệnh nhi khác!</b></i>
+                    </div>
+                    <div class="card-body">
+                        <table id="table-t" class="table table-time">
+                            @foreach (var item in ViewBag.ListBacSi)
+                            {
+                                <tr>
+                                    <td>@item.HoTen</td>
+                                    <td>
+                                        @foreach (var item1 in item.PhieuDangKyKhams)
+                                        {
+                                            <span id="@item.MaBS-@item1.MaPhieuDKK" class="p-time">@item1.ThoiGianHen</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+@section script{
+    <script>
+        var checkT = true;
+
+        $.ajax({
+            url: "/LeTanHome/CheckTime",
+            dataType: "json",
+            data: {
+                chiNhanh: $('#chiNhanh').val(),
+                bacSi: $('#bacSi').val(),
+                time: $('#ThoiGianHen').val()
+            },
+            success: function (res) {
+                $('#alert-time')[0].style.display = "none";
+                $('#ThoiGianHen').removeClass('bg-danger');
+                var tt = $('#table-t').find('.bg-danger');
+                while (tt.length > 0) {
+                    tt[0].classList.remove("bg-danger");
+                    tt = $('#table-t').find('.bg-danger');
+                }
+
+                if (res.data.pdk.length > 0) {
+                    $('#alert-time')[0].style.display = "block";
+                    $('#ThoiGianHen').addClass('bg-danger');
+                    checkT = false;
+                    for (var i in res.data.pdk) {
+                        $('#' + res.data.bs + '-' + res.data.pdk[i]).addClass('bg-danger');
+                    }
+                }
+                else
+                    checkT = true;
+            }
+        });
+
+        $(document).on('input', '#ThoiGianHen', function () {
+            console.log($(this).val());
+            console.log($('#bacSi').val());
+
+            $.ajax({
+                url: "/LeTanHome/CheckTime",
+                dataType: "json",
+                data: {
+                    chiNhanh: $('#chiNhanh').val(),
+                    bacSi: $('#bacSi').val(),
+                    time: $(this).val()
+                },
+                success: function (res) {
+                    $('#alert-time')[0].style.display = "none";
+                    $('#ThoiGianHen').removeClass('bg-danger');
+                    var tt = $('#table-t').find('.bg-danger');
+                    while (tt.length > 0) {
+                        tt[0].classList.remove("bg-danger");
+                        tt = $('#table-t').find('.bg-danger');
+                    }
+
+                    if (res.data.pdk.length > 0) {
+                        $('#alert-time')[0].style.display = "block";
+                        $('#ThoiGianHen').addClass('bg-danger');
+                        checkT = false;
+                        for (var i in res.data.pdk) {
+                            $('#' + res.data.bs + '-' + res.data.pdk[i]).addClass('bg-danger');
+                        }
+                    }
+                    else
+                        checkT = true;
+                }
+            });
+        });
+
+
+        $(document).on('change', '#bacSi', function () {
+            console.log($(this).val());
+            $.ajax({
+                url: "/LeTanHome/CheckTime",
+                dataType: "json",
+                data: {
+                    chiNhanh: $('#chiNhanh').val(),
+                    bacSi: $(this).val(),
+                    time: $('#ThoiGianHen').val()
+                },
+                success: function (res) {
+                    $('#alert-time')[0].style.display = "none";
+                    $('#ThoiGianHen').removeClass('bg-danger');
+                    var tt = $('#table-t').find('.bg-danger');
+                    while (tt.length > 0) {
+                        tt[0].classList.remove("bg-danger");
+                        tt = $('#table-t').find('.bg-danger');
+                    }
+
+                    if (res.data.pdk.length > 0) {
+                        $('#alert-time')[0].style.display = "block";
+                        $('#ThoiGianHen').addClass('bg-danger');
+                        checkT = false;
+                        for (var i in res.data.pdk) {
+                            $('#' + res.data.bs + '-' + res.data.pdk[i]).addClass('bg-danger');
+                        }
+                    }
+                    else
+                        checkT = true;
+                }
+            });
+        });
+
+
+        $(document).on('change', '#chiNhanh', function () {
+            checkT = true;
+            $('#alert-time')[0].style.display = "none";
+            $('#ThoiGianHen').removeClass('bg-danger');
+            var tgHen = $('#ThoiGianHen').val();
+
+            var cn = $(this).val();
+            console.log(cn);
+            console.log(tgHen);
+            $("#table-t").load("/LeTan/LeTanHome/LoadLichHen",
+                { "cn": cn, "tgHen": tgHen }, function (data)
+            {
+
+            });
+
+            $("#bacSi").load("/LeTan/LeTanHome/LoadBacSi",
+                { "cn": cn }, function (data) {
+
+            });
+
+
+        });
+
+        function validateForm() {
+            if (checkT == false) {
+                alert("Thời gian này bác sĩ đang thăm khám cho bệnh nhi khác!");
+                return false;
+            }
+        }
+
+    </script>
+}
+
+

@@ -1,0 +1,48 @@
+﻿@model ICollection<PhongKhamNhi.Models.DTO.KqXnDTO>
+
+<div class="form-group">
+    <h5 style="margin: 10px 0 0 10px;">Danh sách xét nghiệm chỉ định</h5>
+</div>
+<table class="table table-xn">
+    <thead>
+        <tr>
+            <th>Tên xét nghiệm</th>
+            <th>Trị số bình thường</th>
+            <th>Đơn vị tính</th>
+            <th>Kết quả</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenXN</td>
+                <td>@item.TriSoBinhThuong</td>
+                <td>@item.DonViTinh</td>
+                <td>@item.KetQua</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row" style="margin-top:10px;">
+    <div class="col-md-8">
+
+    </div>
+    <div id="s-xn" class="col-md-4">
+        <button class="btn btn-block btn-info btn-lg" onclick="ViewResult()">
+            <i class="ace-icon fa fa-check"></i>
+            Xem kết quả
+        </button>
+    </div>
+</div>
+
+<script>
+    function ViewResult() {
+        $("#phieu-xn").load("/BacSiArea/BacSiHome/ViewResult",
+            {}, function (data) {
+
+            });
+    }
+
+</script>
+
