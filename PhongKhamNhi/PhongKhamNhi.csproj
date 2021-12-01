@@ -151,6 +151,7 @@
     <Compile Include="Areas\LeTan\LeTanAreaRegistration.cs" />
     <Compile Include="Areas\NvBt\Controllers\DonThuocController.cs" />
     <Compile Include="Areas\NvBt\Controllers\NvBtHomeController.cs" />
+    <Compile Include="Areas\NvBt\Controllers\ThuocController.cs" />
     <Compile Include="Areas\NvBt\NvBtAreaRegistration.cs" />
     <Compile Include="Areas\NvXn\Controllers\NvXnHomeController.cs" />
     <Compile Include="Areas\NvXn\Controllers\XetNghiemController.cs" />
@@ -981,6 +982,17 @@
     <Content Include="Areas\NvBt\Views\NvBtHome\Index.cshtml" />
     <Content Include="Areas\ThuNgan\Views\HoaDon\Index.cshtml" />
     <Content Include="Areas\NvBt\Views\DonThuoc\CreateByMaPk.cshtml" />
+    <Content Include="Areas\BacSiArea\Views\BacSiHome\InDonThuoc.cshtml" />
+    <Content Include="Areas\BacSiArea\Views\XetNghiem\Index.cshtml" />
+    <Content Include="Areas\BacSiArea\Views\Thuoc\Index.cshtml" />
+    <Content Include="Areas\NvBt\Views\Thuoc\Index.cshtml" />
+    <Content Include="Areas\BacSiArea\Views\BacSiHome\History.cshtml" />
+    <Content Include="Areas\BacSiArea\Views\BacSiHome\InPkb.cshtml" />
+    <Content Include="Areas\NvBt\Views\NvBtHome\In.cshtml" />
+    <Content Include="Areas\ThuNgan\Views\ThuNganHome\In.cshtml" />
+    <Content Include="Areas\ThuNgan\Views\HoaDon\In.cshtml" />
+    <Content Include="Areas\NvBt\Views\Thuoc\Create.cshtml" />
+    <Content Include="Areas\NvBt\Views\Thuoc\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1018,8 +1030,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\BacSiArea\Data\" />
     <Folder Include="Areas\BacSiArea\Views\BenhNhi\" />
-    <Folder Include="Areas\BacSiArea\Views\Thuoc\" />
-    <Folder Include="Areas\BacSiArea\Views\XetNghiem\" />
     <Folder Include="Areas\LeTan\Data\" />
     <Folder Include="Areas\NvBt\Data\" />
     <Folder Include="Areas\NvXn\Data\" />

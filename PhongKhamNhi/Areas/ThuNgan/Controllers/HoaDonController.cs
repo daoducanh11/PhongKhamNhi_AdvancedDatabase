@@ -1,5 +1,7 @@
 ﻿using PhongKhamNhi.Models.DAO;
+using PhongKhamNhi.Models.DTO;
 using PhongKhamNhi.Models.Entities;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +71,25 @@ namespace PhongKhamNhi.Areas.ThuNgan.Controllers
             {
                 status = true
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("In", new { id = id });
+        }
+        public ActionResult In(int id)
+        {
+            List<CtHdThuocDTO> lst = new HoaDonThuocDAO().lstThuocByMaHd(id);
+            double t = 0;
+            foreach (CtHdThuocDTO i in lst)
+            {
+                t += i.SoLuong * i.DonGia;
+            }
+            ViewBag.tong = t;
+            HoaDonBanThuoc p = new HoaDonThuocDAO().FindByID(id);
+            ViewBag.hd = p;
+            ViewBag.ngay = p.ThoiGian.ToString("dd/MM/yyyy");
+            return View(lst);
         }
     }
 }

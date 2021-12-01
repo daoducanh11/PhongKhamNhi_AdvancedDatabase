@@ -1,4 +1,4 @@
-﻿@model List<PhongKhamNhi.Models.DTO.KqXnDTO>
+﻿@model PhongKhamNhi.Models.Entities.PhieuKhamBenh
 
 @{ Layout = null; }
 
@@ -33,15 +33,15 @@
         <div class="row">
             <div class="col-12">
                 <h2><b>PHÒNG KHÁM NHI MTA</b></h2>
-                <p>Địa chỉ: @ViewBag.cn</p>
+                <p>Địa chỉ: @Model.ChiNhanh.DiaChi</p>
                 <p>Điện thoại: 1900 1009</p>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <h1>PHIẾU ĐĂNG KÝ XÉT NGHIỆM</h1>
-                    <p>Mã phiếu: @ViewBag.PhieuDkXn.MaPhieuDKXN</p>
+                    <h1>PHIẾU KHÁM BỆNH</h1>
+                    <p>Mã phiếu khám: @Model.MaPhieuKB</p>
                     <p>Ngày: @ViewBag.ngay</p>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                 <table class="table table-sign table-infor">
                     <tbody>
                         <tr>
-                            <td style="width: 200px;">
-                                <p>Theo phiếu khám bệnh:</p>
+                            <td style="width: 180px;">
+                                <p>Mã bệnh nhi:</p>
                                 <p>Họ tên bệnh nhi:</p>
                                 <p>Ngày sinh:</p>
                                 <p>Giới tính:</p>
@@ -60,11 +60,45 @@
                             </td>
 
                             <td>
-                                <p>@ViewBag.Pk</p>
-                                <p>@ViewBag.BenhNhi.HoTen</p>
-                                <p>@ViewBag.BenhNhi.NgaySinh.ToString().Split(' ')[0]</p>
-                                <p>@ViewBag.BenhNhi.GioiTinh</p>
-                                <p>@ViewBag.BenhNhi.DiaChi</p>
+                                <p>@Model.BenhNhi.MaBN</p>
+                                <p>@Model.BenhNhi.HoTen</p>
+                                <p>@Model.BenhNhi.NgaySinh.ToString().Split(' ')[0]</p>
+                                <p>@Model.BenhNhi.GioiTinh</p>
+                                <p>@Model.BenhNhi.DiaChi</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <div class="col-12">
+                <table class="table table-sign table-infor">
+                    <tbody>
+                        <tr>
+                            <td style="width: 180px;">
+                                <p>Bác sĩ khám:</p>
+                                <p>Loại dịch vụ:</p>
+                            </td>
+
+                            <td>
+                                <p>@Model.BacSi.HoTen</p>
+                                <p>@Model.DichVuKham.TenDV</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <div class="col-12">
+                <table class="table table-sign table-infor">
+                    <tbody>
+                        <tr>
+                            <td style="width: 180px;">
+                                <b>Tổng tiền:</b>
+                            </td>
+
+                            <td>
+                                <p>@Model.DonGia.ToString("N0")</p>
                             </td>
                         </tr>
                     </tbody>
@@ -72,58 +106,21 @@
             </div>
             <hr />
         </div>
-        
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-order">
-                    <thead>
-                        <tr>
-                            <th class="text-center">STT</th>
-                            <th>Tên xét nghiệm</th>
-                            <th class="text-center">Đơn giá (VNĐ)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Count; i++)
-                        {
-            <tr>
-                <td class="text-center">
-                    @(i + 1)
-                </td>
-                <td>@Model[i].TenXN</td>
-                <td class="text-right">
-                    @(Model[i].DonGia.ToString("N0"))
-                </td>
-            </tr>}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="text-right">
-                                <b>Tổng tiền: </b>
-                            </td>
-                            <td colspan="1" class="text-right">
-                                <b>@ViewBag.PhieuDkXn.TongTien.ToString("N0")</b>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- /.col-->
-        </div>
+
         <div class="row">
             <div class="col-12">
                 <table class="table table-sign">
                     <tbody>
                         <tr>
-                            <td class="text-center" style="opacity:0;">
-                                <b>Khách hàng</b>
-                                <p>(Ký, họ tên)</p>
+                            <td class="text-center">
+                                <b>Nhân viên lập phiếu</b>
+                                <p>(Ký, ghi rõ họ tên)</p>
                             </td>
                             <td>
                             </td>
                             <td class="text-center">
                                 <b>Thu ngân</b>
-                                <p>(Ký, họ tên)</p>
+                                <p>(Ký, ghi rõ họ tên)</p>
                             </td>
                         </tr>
                     </tbody>
@@ -133,3 +130,6 @@
     </section>
 </body>
 </html>
+
+
+

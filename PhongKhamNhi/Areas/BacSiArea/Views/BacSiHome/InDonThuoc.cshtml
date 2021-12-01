@@ -1,4 +1,4 @@
-﻿@model List<PhongKhamNhi.Models.DTO.KqXnDTO>
+﻿@model List<PhongKhamNhi.Models.DTO.ChiTietDonThuocDTO>
 
 @{ Layout = null; }
 
@@ -40,8 +40,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <h1>PHIẾU ĐĂNG KÝ XÉT NGHIỆM</h1>
-                    <p>Mã phiếu: @ViewBag.PhieuDkXn.MaPhieuDKXN</p>
+                    <h1>ĐƠN THUỐC</h1>
+                    <p>Dựa trên phiếu khám: @ViewBag.MaPhieuKB</p>
                     <p>Ngày: @ViewBag.ngay</p>
                 </div>
             </div>
@@ -51,16 +51,14 @@
                 <table class="table table-sign table-infor">
                     <tbody>
                         <tr>
-                            <td style="width: 200px;">
-                                <p>Theo phiếu khám bệnh:</p>
+                            <td style="width: 180px;">
                                 <p>Họ tên bệnh nhi:</p>
                                 <p>Ngày sinh:</p>
                                 <p>Giới tính:</p>
                                 <p>Địa chỉ:</p>
                             </td>
-
+                            
                             <td>
-                                <p>@ViewBag.Pk</p>
                                 <p>@ViewBag.BenhNhi.HoTen</p>
                                 <p>@ViewBag.BenhNhi.NgaySinh.ToString().Split(' ')[0]</p>
                                 <p>@ViewBag.BenhNhi.GioiTinh</p>
@@ -79,33 +77,33 @@
                     <thead>
                         <tr>
                             <th class="text-center">STT</th>
-                            <th>Tên xét nghiệm</th>
-                            <th class="text-center">Đơn giá (VNĐ)</th>
+                            <th>Tên thuốc</th>
+                            <th class="text-center">Đơn vị tính</th>
+                            <th class="text-center">Số lượng</th>
+                            <th>Cách dùng</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (int i = 0; i < Model.Count; i++)
                         {
-            <tr>
-                <td class="text-center">
-                    @(i + 1)
-                </td>
-                <td>@Model[i].TenXN</td>
-                <td class="text-right">
-                    @(Model[i].DonGia.ToString("N0"))
-                </td>
-            </tr>}
+                            <tr>
+                                <td class="text-center">
+                                    @(i + 1)
+                                </td>
+                                <td>@Model[i].TenThuoc</td>
+                                <td class="text-center">
+                                    @Model[i].DonViTinh
+                                </td>
+                                <td class="text-center">
+                                    @Model[i].SoLuong
+                                </td>
+                                <td>
+                                    @Model[i].CachDung
+                                </td>
+                            </tr>
+                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="text-right">
-                                <b>Tổng tiền: </b>
-                            </td>
-                            <td colspan="1" class="text-right">
-                                <b>@ViewBag.PhieuDkXn.TongTien.ToString("N0")</b>
-                            </td>
-                        </tr>
-                    </tfoot>
+                    
                 </table>
             </div>
             <!-- /.col-->
@@ -122,7 +120,7 @@
                             <td>
                             </td>
                             <td class="text-center">
-                                <b>Thu ngân</b>
+                                <b>Bác sĩ điều trị</b>
                                 <p>(Ký, họ tên)</p>
                             </td>
                         </tr>
@@ -133,3 +131,4 @@
     </section>
 </body>
 </html>
+

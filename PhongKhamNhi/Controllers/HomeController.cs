@@ -15,6 +15,7 @@ namespace PhongKhamNhi.Controllers
             List<ChiNhanh> lst = new ChiNhanhDAO().ListChiNhanh();
             ViewBag.ListChiNhanh = lst;
             ViewBag.ListBacSi = new BacSiDAO().GetListBacSiByMaCn(lst[0].MaChiNhanh);
+            ViewBag.tgHenMin = DateTime.Now.AddDays(1).ToString("yyyy-MM-ddTHH:mm");
             return View();
         }
         [HttpPost]

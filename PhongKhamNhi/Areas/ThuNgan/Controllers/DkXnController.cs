@@ -82,9 +82,11 @@ namespace PhongKhamNhi.Areas.ThuNgan.Controllers
             List<KqXnDTO> lst = dao.ListKqXn(id);
             PhieuDKXN x = dao.FindByID(id);
             ViewBag.PhieuDkXn = x;
+            ViewBag.ngay = x.ThoiGianLap.ToString("dd/MM/yyyy");
             PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(x.MaPhieuKB);
+            ViewBag.Pk = p.MaPhieuKB;
+            ViewBag.cn = p.ChiNhanh.DiaChi;
             ViewBag.BenhNhi = p.BenhNhi;
-            ViewBag.Bs = p.BacSi.HoTen;
             return View(lst);
         }
     }

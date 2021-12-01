@@ -1,6 +1,7 @@
 ﻿using PhongKhamNhi.Models.DAO;
 using PhongKhamNhi.Models.DTO;
 using PhongKhamNhi.Models.Entities;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
             if (tu == null)
                 tu = "2020-11-19 12:00:00";
             if (den == null)
-                den = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                den = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss");
             NhanVien nv = (NhanVien)Session["user"];
             return View(new HoaDonThuocDAO().ListHdThuoc(nv.MaChiNhanh, int.Parse(maHd), ten, tu, den, pageNum, pageSize));
         }
@@ -66,11 +67,6 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
                 t += i.DonGia * i.SoLuong;
             }
             dao.UpdatetongTien(id, t);
-            //DoanhThuDAO daoDt = new DoanhThuDAO();
-            //DoanhThu d = daoDt.Find(h.ThoiGian, h.MaChiNhanh);
-            //d.ThuBanThuoc += t;
-            //d.TongTien += t;
-            //daoDt.Update(d);
             return RedirectToAction("Index", "NvBtHome");
         }
 
@@ -108,15 +104,6 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
                 t += i.DonGia * i.SoLuong;
             }
             dao.UpdatetongTien(id, t);
-            //DoanhThuDAO daoDt = new DoanhThuDAO();
-            //DoanhThu d0 = daoDt.Find(dt, h.MaChiNhanh);
-            //d0.ThuBanThuoc -= t;
-            //d0.TongTien -= t;
-            //daoDt.Update(d0);
-            //DoanhThu d = daoDt.Find(h.ThoiGian, h.MaChiNhanh);
-            //d.ThuBanThuoc += t;
-            //d.TongTien += t;
-            //daoDt.Update(d);
             return RedirectToAction("Index", "NvBtHome");
         }
 
@@ -216,6 +203,24 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("In", new { id = id });
+        }
+        public ActionResult In(int id)
+        {
+            List<CtHdThuocDTO> lst = new HoaDonThuocDAO().lstThuocByMaHd(id);
+            double t = 0;
+            foreach(CtHdThuocDTO i in lst)
+            {
+                t += i.SoLuong * i.DonGia;
+            }
+            ViewBag.tong = t;
+            HoaDonBanThuoc p = new HoaDonThuocDAO().FindByID(id);
+            ViewBag.hd = p;
+            ViewBag.ngay = p.ThoiGian.ToString("dd/MM/yyyy");
+            return View(lst);
+        }
     }
     public class ResultSum
     {

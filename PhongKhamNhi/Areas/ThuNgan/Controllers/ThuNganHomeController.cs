@@ -1,5 +1,6 @@
 ﻿using PhongKhamNhi.Models.DAO;
 using PhongKhamNhi.Models.Entities;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,17 @@ namespace PhongKhamNhi.Areas.ThuNgan.Controllers
             {
                 status = true
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("In", new { id = id });
+        }
+        public ActionResult In(int id)
+        {
+            PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(id);
+            ViewBag.ngay = p.ThoiGianLap.ToString("dd/MM/yyyy");
+            return View(p);
         }
 
         public ActionResult SlPhieuKb()

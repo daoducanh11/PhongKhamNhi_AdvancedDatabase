@@ -49,7 +49,7 @@
                                 @Model.DichVuKham.TenDV
                             </div>
                             <div class="col-md-2 text-right">
-                                <a href="/BacSiArea/BenhNhi/@Model.MaBN" target="_blank" class="btn btn-block btn-info btn-lg">
+                                <a href="/BacSiArea/BacSiHome/History/@Model.MaBN" target="_blank" class="btn btn-block btn-info btn-lg">
                                     <i class="fas fa-search-plus"></i>
                                     Xem lịch sử khám
                                 </a>
@@ -101,10 +101,10 @@
                     <table class="table table-xn">
                         <thead>
                             <tr>
-                                <th>Tên xét nghiệm</th>
-                                <th>Trị số bình thường</th>
-                                <th>Đơn vị tính</th>
-                                <th>Kết quả</th>
+                                <th class="text-center">Tên xét nghiệm</th>
+                                <th class="text-center">Trị số bình thường</th>
+                                <th class="text-center">Đơn vị tính</th>
+                                <th class="text-center">Kết quả</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,9 +112,9 @@
                             {
                                 <tr>
                                     <td>@item.TenXN</td>
-                                    <td>@item.TriSoBinhThuong</td>
-                                    <td>@item.DonViTinh</td>
-                                    <td>@item.KetQua</td>
+                                    <td class="text-center">@item.TriSoBinhThuong</td>
+                                    <td class="text-center">@item.DonViTinh</td>
+                                    <td class="text-center">@item.KetQua</td>
                                 </tr>
                             }
                         </tbody>
@@ -149,10 +149,10 @@
                     <table class="table table-xn">
                         <thead>
                             <tr>
-                                <th>Tên thuốc</th>
-                                <th>Số lượng</th>
-                                <th>Đơn vị tính</th>
-                                <th>Cách dùng</th>
+                                <th class="text-center">Tên thuốc</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-center">Đơn vị tính</th>
+                                <th class="text-center">Cách dùng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,19 +160,19 @@
                             {
                                 <tr>
                                     <td>@item.TenThuoc</td>
-                                    <td>@item.SoLuong</td>
-                                    <td>@item.DonViTinh</td>
+                                    <td class="text-center">@item.SoLuong</td>
+                                    <td class="text-center">@item.DonViTinh</td>
                                     <td>@item.CachDung</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <div id="luu-don-thuoc" class="row" style="margin-top:10px;">
+                    <div id="luu-don-thuoc" class="row" style="margin: 0 10px 10px;">
                         <div class="col-md-8">
 
                         </div>
                         <div id="s-xn" class="col-md-4">
-                            <a class="btn btn-block btn-info btn-lg">
+                            <a href="~/BacSiArea/BacSiHome/PrintDonThuoc" target="_blank" class="btn btn-block btn-info btn-lg">
                                 <i class="fas fa-print"></i>
                                 In đơn thuốc
                             </a>

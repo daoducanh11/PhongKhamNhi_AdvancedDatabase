@@ -20,7 +20,7 @@ namespace PhongKhamNhi.Models.Entities
         [Key]
         public int MaThuoc { get; set; }
 
-        public int? MaLoaiThuoc { get; set; }
+        public int MaLoaiThuoc { get; set; }
 
         [StringLength(50)]
         public string TenThuoc { get; set; }

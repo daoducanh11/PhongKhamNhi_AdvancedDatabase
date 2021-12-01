@@ -1,6 +1,7 @@
 ﻿using PhongKhamNhi.Models.DAO;
 using PhongKhamNhi.Models.DTO;
 using PhongKhamNhi.Models.Entities;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -243,12 +244,39 @@ namespace PhongKhamNhi.Areas.BacSiArea.Controllers
             Session["donthuoc"] = null;
             return PartialView(lst);
         }
-        public ActionResult InDonThuoc()
+        public ActionResult PrintDonThuoc()
         {
-            int id = (int)Session["iddkxn"];
-            return PartialView(new PhieuDkXnDAO().ListKqXn(id));
+            int id = (int)Session["maPk"];
+            return new ActionAsPdf("InDonThuoc", new { id = id });
+        }
+        public ActionResult InDonThuoc(int id)
+        {
+            List<ChiTietDonThuocDTO> lst = new ThuocDAO().lstThuocByMaPk(id);
+            PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(id);
+            ViewBag.MaPhieuKB = id;
+            ViewBag.cn = p.ChiNhanh.DiaChi;
+            ViewBag.BenhNhi = p.BenhNhi;
+            ViewBag.ngay = p.ThoiGianLap.ToString("dd/MM/yyyy");
+            return View(lst);
         }
 
+
+        public ActionResult PrintPkb(int id)
+        {
+            return new ActionAsPdf("InPkb", new { id = id });
+        }
+        public ActionResult InPkb(int id)
+        {
+            PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(id);
+            ViewBag.ngay = p.ThoiGianLap.ToString("dd/MM/yyyy");
+            return View(p);
+        }
+
+        public ActionResult History(int id)
+        {
+            ViewBag.ten = new BenhNhiDAO().FindByID(id).HoTen;
+            return View(new PhieuKhamBenhDAO().lichSuKham(id, 1, 11));
+        }
         public ActionResult Detail(int id)
         {
             PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(id);
