@@ -188,6 +188,8 @@
     <Compile Include="Models\DTO\PhieuDangKyKhamDTO.cs" />
     <Compile Include="Models\DTO\PhieuDkXnDTO.cs" />
     <Compile Include="Models\DTO\PhieuKhamDTO.cs" />
+    <Compile Include="Models\DTO\StatisticsDTO.cs" />
+    <Compile Include="Models\DTO\ThuocBanDTO.cs" />
     <Compile Include="Models\Entities\BacSi.cs" />
     <Compile Include="Models\Entities\BenhNhi.cs" />
     <Compile Include="Models\Entities\ChiNhanh.cs" />
@@ -702,6 +704,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -993,7 +997,12 @@
     <Content Include="Areas\ThuNgan\Views\HoaDon\In.cshtml" />
     <Content Include="Areas\NvBt\Views\Thuoc\Create.cshtml" />
     <Content Include="Areas\NvBt\Views\Thuoc\Edit.cshtml" />
+    <Content Include="Areas\NvXn\Views\NvXnHome\In.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\ThuocBan.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

@@ -1,6 +1,7 @@
 ﻿using PhongKhamNhi.Models.DAO;
 using PhongKhamNhi.Models.DTO;
 using PhongKhamNhi.Models.Entities;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,24 @@ namespace PhongKhamNhi.Areas.NvXn.Controllers
             }
             new PhieuDkXnDAO().UpdateNvXn(id);
             return RedirectToAction("Index", "NvXnHome");
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("In", new { id = id });
+        }
+        public ActionResult In(int id)
+        {
+            PhieuDkXnDAO dao = new PhieuDkXnDAO();
+            List<KqXnDTO> lst = dao.ListKqXn(id);
+            PhieuDKXN x = dao.FindByID(id);
+            ViewBag.PhieuDkXn = x;
+            ViewBag.ngay = x.ThoiGianLap.ToString("dd/MM/yyyy");
+            PhieuKhamBenh p = new PhieuKhamBenhDAO().FindByID(x.MaPhieuKB);
+            ViewBag.Pk = p.MaPhieuKB;
+            ViewBag.cn = p.ChiNhanh.DiaChi;
+            ViewBag.BenhNhi = p.BenhNhi;
+            return View(lst);
         }
 
         public ActionResult SlPhieuDkXn()

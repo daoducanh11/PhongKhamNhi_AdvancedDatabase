@@ -31,7 +31,9 @@ namespace PhongKhamNhi.Controllers
                 {
                     if (tk.MaQuyen == 0)
                     {
-
+                        Session["user"] = tk;
+                        Session["username"] = tk.TenDangNhap;
+                        return RedirectToAction("Index", "AdminHome", new { Area = "Admin" });
                     }
                     else if (tk.MaQuyen == 1)
                     {

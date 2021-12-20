@@ -1,4 +1,5 @@
-﻿using PhongKhamNhi.Models.Entities;
+﻿using PhongKhamNhi.Models.DTO;
+using PhongKhamNhi.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,42 @@ namespace PhongKhamNhi.Models.DAO
                 db.SaveChanges();//luu vao o dia
             }
             return 1;
+        }
+
+        public List<StatisticsDTO> StatisticsByMonth(int year, int month, int maCn)
+        {
+            var lst = db.Database.SqlQuery<StatisticsDTO>(String.Format("SELECT * FROM Func_ThongKeDoanhThu({0}, {1}, {2})", year, month, maCn)
+                ).ToList();
+            return lst;
+        }
+        public List<int> GetYearOrder()
+        {
+            var lst = db.Database.SqlQuery<int>("SELECT DISTINCT YEAR(NgayThangNam) FROM DoanhThu ORDER BY YEAR(NgayThangNam) DESC"
+                ).ToList();
+            return lst;
+        }
+        public double GetTotal(int year, int month, int maCn)
+        {
+            try
+            {
+                var t = db.Database.SqlQuery<double>(String.Format("SELECT SUM(DoanhThu) FROM Func_ThongKeDoanhThu({0}, {1}, {2})", year, month, maCn)
+                ).ToList();
+                return t[0];
+            }
+            catch { }
+            return 0;
+        }
+
+        public double DoanhThuThuocBan(int year, int month, int maCn)
+        {
+            try
+            {
+                var t = db.Database.SqlQuery<double>(String.Format("DoanhThuThuocBan {0}, {1}, {2}", year, month, maCn)
+                ).ToList();
+                return t[0];
+            }
+            catch { }
+            return 0;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace PhongKhamNhi.Models.DAO
             foreach(BacSi item in res)
             {
                 item.PhieuDangKyKhams.Clear();
-                item.PhieuDangKyKhams = (from s in db.PhieuDangKyKhams where s.TrangThai == true && s.MaBS == item.MaBS orderby s.ThoiGianHen select s).ToList();
+                item.PhieuDangKyKhams = (from s in db.PhieuDangKyKhams where s.TrangThai == true && s.MaBS == item.MaBS && s.ThoiGianHen >= DateTime.Now orderby s.ThoiGianHen select s).ToList();
             }
             return res.ToList();
         }
