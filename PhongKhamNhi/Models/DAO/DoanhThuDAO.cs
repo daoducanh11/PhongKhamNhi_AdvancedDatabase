@@ -23,25 +23,41 @@ namespace PhongKhamNhi.Models.DAO
                 return res.FirstOrDefault();
             return null;
         }
+        //public int Insert(DoanhThu d)
+        //{
+        //    db.DoanhThus.Add(d);//luu tren RAM
+        //    db.SaveChanges();//luu vao o dia
+        //    return 1;
+        //}
+        //public int Update(DoanhThu d)
+        //{
+        //    DoanhThu tmp = db.DoanhThus.Find(d.NgayThangNam, d.MaChiNhanh);
+        //    if (tmp != null)
+        //    {
+        //        tmp.ThuDichVuKham = d.ThuDichVuKham;
+        //        tmp.ThuBanThuoc = d.ThuBanThuoc;
+        //        tmp.ThuXetNghiem = d.ThuXetNghiem;
+        //        tmp.TongTien = d.TongTien;
+        //        db.SaveChanges();//luu vao o dia
+        //    }
+        //    return 1;
+        //}
+
         public int Insert(DoanhThu d)
         {
-            db.DoanhThus.Add(d);//luu tren RAM
-            db.SaveChanges();//luu vao o dia
+            db.Database.ExecuteSqlCommand(string.Format("InsertDoanhThu '{0}', {1}, {2}, {3}, {4}, {5}",
+                d.NgayThangNam.ToString("yyyy-MM-dd"), d.MaChiNhanh, d.ThuDichVuKham, d.ThuXetNghiem, d.ThuBanThuoc, d.TongTien
+                ));
             return 1;
         }
         public int Update(DoanhThu d)
         {
-            DoanhThu tmp = db.DoanhThus.Find(d.NgayThangNam, d.MaChiNhanh);
-            if (tmp != null)
-            {
-                tmp.ThuDichVuKham = d.ThuDichVuKham;
-                tmp.ThuBanThuoc = d.ThuBanThuoc;
-                tmp.ThuXetNghiem = d.ThuXetNghiem;
-                tmp.TongTien = d.TongTien;
-                db.SaveChanges();//luu vao o dia
-            }
+            db.Database.ExecuteSqlCommand(string.Format("CapNhatDoanhThu '{0}', {1}, {2}, {3}, {4}, {5}",
+                d.NgayThangNam.ToString("yyyy-MM-dd"), d.MaChiNhanh, d.ThuDichVuKham, d.ThuXetNghiem, d.ThuBanThuoc, d.TongTien
+                ));
             return 1;
         }
+        
 
         public List<StatisticsDTO> StatisticsByMonth(int year, int month, int maCn)
         {
