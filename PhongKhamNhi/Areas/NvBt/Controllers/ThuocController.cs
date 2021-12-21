@@ -20,6 +20,21 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
             ViewBag.ListLoaiThuoc = new ThuocDAO().GetListLoaiThuoc();
             return View(new ThuocDAO().lstThuoc(ten, int.Parse(lt), pageNum, pageSize));
         }
+        [HttpPost]
+        public ActionResult Index(FormCollection data, int pageNum = 1, int pageSize = 9)
+        {
+            ThuocDAO dao = new ThuocDAO();
+            if (data.Count > 0)
+            {
+                string[] ids = data["checkBoxId"].Split(new char[] { ',' });
+                foreach (string id in ids)
+                {
+                    dao.Delete(int.Parse(id));
+                }
+            }
+            NhanVien nv = (NhanVien)Session["user"];
+            return View(new ThuocDAO().lstThuoc("", 0, pageNum, pageSize));
+        }
 
         public ActionResult Create()
         {
@@ -45,6 +60,12 @@ namespace PhongKhamNhi.Areas.NvBt.Controllers
         {
             t.MaLoaiThuoc = int.Parse(lt);
             new ThuocDAO().Update(t);
+            return RedirectToAction("Index", "Thuoc");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            new ThuocDAO().Delete(id);
             return RedirectToAction("Index", "Thuoc");
         }
     }

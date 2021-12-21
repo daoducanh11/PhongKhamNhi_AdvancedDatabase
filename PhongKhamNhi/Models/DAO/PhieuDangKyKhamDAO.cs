@@ -73,5 +73,14 @@ namespace PhongKhamNhi.Models.DAO
             else
                 return -1;
         }
+
+        public int UpdateBySERIALIZABLE(PhieuDangKyKham p)
+        {
+            db.Database.ExecuteSqlCommand(string.Format("CapNhatPhieuDKK {0}, {1}, {2}, {3}, '{4}', N'{5}', " +
+                "'{6}', '{7}', '{8}', N'{9}', '{10}'", p.MaPhieuDKK, p.MaChiNhanh, p.MaNV, p.MaBS, 
+                p.ThoiGianDKK.Value.ToString("yyyy-MM-dd HH:mm:ss"), p.HoTen, p.NgaySinh.ToString("yyyy-MM-dd"), 
+                p.Sdt, p.ThoiGianHen.ToString("yyyy-MM-dd HH:mm:ss"), p.LoiNhan, p.TrangThai));
+            return p.MaPhieuDKK;
+        }
     }
 }

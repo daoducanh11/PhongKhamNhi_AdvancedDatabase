@@ -75,6 +75,17 @@ namespace PhongKhamNhi.Models.DAO
             }
             return tmp.MaThuoc;
         }
+        public int Delete(int id)
+        {
+            Thuoc t = db.Thuocs.Find(id);
+            if (t != null)
+            {
+                db.Thuocs.Remove(t);
+                return db.SaveChanges();
+            }
+            else
+                return -1;
+        }
 
         public Thuoc FindByID(int id)
         {

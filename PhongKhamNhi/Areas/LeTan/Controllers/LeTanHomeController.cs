@@ -134,7 +134,7 @@ namespace PhongKhamNhi.Areas.LeTan.Controllers
             p.MaBS = int.Parse(bs);
             NhanVien nv = (NhanVien)Session["user"];
             p.MaNV = nv.MaNV;
-            new PhieuDangKyKhamDAO().Update(p);
+            new PhieuDangKyKhamDAO().UpdateBySERIALIZABLE(p);
             return RedirectToAction("Index", "LeTanHome");
 
             //if (ModelState.IsValid)

@@ -62,73 +62,91 @@
                             </div>
                         </div>
                     </div>
-                </div>}
+                </div>
+            }
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="~/NvBt/Thuoc/Create" class="create-new">
-                    <i class="fas fa-plus"></i>
-                    Thêm mới
-                </a>
-                <button type="submit" class="btn-delete" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
-                    <i class="fa fa-trash-alt"></i>
-                    Xóa
-                </button>
-            </div>
-            <div class="col-md-6">
-                @Html.PagedListPager(Model, PageNum => Url.Action("Index", new { PageNum, @ten = @ViewBag.ten, @lt = @ViewBag.lt }))
-            </div>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-center">
-                        <input type="checkbox" id="checkBoxAll" />
-                    </th>
-                    <th class="text-center">
-                        Tên thuốc
-                    </th>
-                    <th class="text-center">
-                        Đơn vị tính
-                    </th>
-                    <th class="text-center">
-                        Đơn giá
-                    </th>
-                    <th class="text-center">
-                        <i class="fas fa-cogs"></i>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="text-center">
-                            <input type="checkbox" class="checkBoxId" value="@item.MaThuoc" name="checkBoxId" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TenThuoc)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.DonViTinh)
-                        </td>
-                        <td class="text-right">
-                            @item.DonGia.ToString("N0")
-                        </td>
-                        <td class="text-center">
-                            <a href="~/NvBt/Thuoc/Edit/@item.MaThuoc" title="Sửa">
-                                <i class="fas fa-edit" aria-hidden="true"></i>
-                            </a>
-                            <a href="~/NvBt/Thuoc/Delete/@item.MaThuoc" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
-                                <i class="fas fa-trash-alt" style="color:red;"></i>
-                            </a>
 
-                        </td>
+        @using (Html.BeginForm("Index", "Thuoc", FormMethod.Post, new { }))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="~/NvBt/Thuoc/Create" class="create-new">
+                        <i class="fas fa-plus"></i>
+                        Thêm mới
+                    </a>
+                    <button type="submit" class="btn-delete" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                        <i class="fa fa-trash-alt"></i>
+                        Xóa
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    @Html.PagedListPager(Model, PageNum => Url.Action("Index", new { PageNum, @ten = @ViewBag.ten, @lt = @ViewBag.lt }))
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            <input type="checkbox" id="checkBoxAll" />
+                        </th>
+                        <th class="text-center">
+                            Tên thuốc
+                        </th>
+                        <th class="text-center">
+                            Đơn vị tính
+                        </th>
+                        <th class="text-center">
+                            Đơn giá
+                        </th>
+                        <th class="text-center">
+                            <i class="fas fa-cogs"></i>
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
-        
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <input type="checkbox" class="checkBoxId" value="@item.MaThuoc" name="checkBoxId" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenThuoc)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DonViTinh)
+                            </td>
+                            <td class="text-right">
+                                @item.DonGia.ToString("N0")
+                            </td>
+                            <td class="text-center">
+                                <a href="~/NvBt/Thuoc/Edit/@item.MaThuoc" title="Sửa">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a href="~/NvBt/Thuoc/Delete/@item.MaThuoc" title="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                                    <i class="fas fa-trash-alt" style="color:red;"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
     </div>
 </section>
 
+@section script{
+    <script>
+        $(document).ready(function () {
+            $('#checkBoxAll').click(function () {
+                if ($(this).is(":checked"))
+                    $('.checkBoxId').prop('checked', true);
+                else
+                    $('.checkBoxId').prop('checked', false);
+            });
+        });
+
+    </script>
+}

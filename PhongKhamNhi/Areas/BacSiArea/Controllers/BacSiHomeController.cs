@@ -257,6 +257,7 @@ namespace PhongKhamNhi.Areas.BacSiArea.Controllers
             ViewBag.cn = p.ChiNhanh.DiaChi;
             ViewBag.BenhNhi = p.BenhNhi;
             ViewBag.ngay = p.ThoiGianLap.ToString("dd/MM/yyyy");
+            ViewBag.KetLuan = p.KetLuan;
             return View(lst);
         }
 
